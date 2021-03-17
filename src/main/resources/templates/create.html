@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <head th:replace="/layout :: head"></head>
+</head>
+<body>
+
+<h3>Form create</h3>
+
+<th:block th:if="${message}">
+    <span th:text="${message}"></span>
+</th:block>
+
+<form id="form" th:object="${product}" method="post">
+    <div>
+        <label>Name</label>
+        <input type="text" th:field="*{name}"/>
+    </div>
+    <div>
+        <label>Price</label>
+        <input type="text" th:field="*{price}"/>
+    </div>
+    <div>
+        <label>Description</label>
+        <input type="text" th:field="*{description}"/>
+    </div>
+    <br>
+    <div>
+        <label>Date</label> &ensp;
+        <input type="date" th:field="*{dateTime}"/>
+    </div>
+    <br>
+    <div>
+        <label>Quantity</label>
+        <input type="text" th:field="*{quantity}"/>
+    </div>
+    <br>
+    <div>
+        <label>Category</label> &ensp;
+        <select th:field="*{category}">
+            <th:block th:each="p: ${categories}">
+                <option th:value="${p.id}" th:text="${p.name}"></option>
+            </th:block>
+        </select>
+    </div>
+    <br>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+<br>
+
+<a href="/products">
+    <button type="button" class="btn btn-primary">Back list product</button>
+</a> <br>
+
+<footer th:replace="/layout :: footer"></footer>
+
+</body>
+</html>
