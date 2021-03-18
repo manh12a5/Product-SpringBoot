@@ -86,6 +86,14 @@ public class ProductController {
         return modelAndView;
     }
 
+    @PostMapping("/view/{id}")
+    public ModelAndView viewDetail(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("list");
+        modelAndView.addObject("product", productService.findById(id));
+        return modelAndView;
+    }
+
+
     //SearchNameProduct
     @PostMapping("/search")
     public ModelAndView showSearchNameProduct(@RequestParam String name, @PageableDefault(size = 5) Pageable pageable) {
