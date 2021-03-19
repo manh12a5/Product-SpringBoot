@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,6 +33,20 @@ public class AppUserService implements IAppUserService, UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(appUser.getRole());
         return new User(appUser.getName(), appUser.getPassword(), authorities);
+    }
+
+    @Override
+    public AppUser getCurrentUser() {
+        AppUser appUser;
+        String name;
+        Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (object instanceof UserDetails) {
+            name = ((UserDetails) object).getUsername();
+        } else {
+            name = object.toString();
+        }
+        appUser = this.findAppUserByName(name);
+        return appUser;
     }
 
     @Override

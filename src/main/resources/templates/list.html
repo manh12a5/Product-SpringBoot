@@ -31,6 +31,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/products/top5ProductNewest">Top 5 New Product</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
             </ul>
             <form class="d-flex" action="/products/search" method="post">
                 <input name="name" class="form-control me-2" type="search" placeholder="Search Name Product"
@@ -104,6 +107,10 @@
     <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
     <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
     <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+</div>
+
+<div>
+    <a href="/logout">Logout</a>
 </div>
 
 <footer th:replace="/layout :: footer"></footer>

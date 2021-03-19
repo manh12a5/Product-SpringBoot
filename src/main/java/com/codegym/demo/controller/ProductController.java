@@ -1,5 +1,7 @@
 package com.codegym.demo.controller;
 
+import com.codegym.demo.model.AppUser;
+import com.codegym.demo.service.appuser.IAppUserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +27,17 @@ public class ProductController {
     @Autowired
     private ICategoryService categoryService;
 
+    @Autowired
+    private IAppUserService appUserService;
+
     @ModelAttribute("categories")
     public List<Category> allCategory(){
         return categoryService.findAll();
+    }
+    
+    @ModelAttribute("currentUser")
+    private AppUser user() {
+        return appUserService.getCurrentUser();
     }
 
 //    @ExceptionHandler(NotFoundException.class)
